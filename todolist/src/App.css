@@ -1,21 +1,55 @@
 .App {
   text-align: center;
+  background: #222;
+  height: 100%;
+  margin-bottom: 0px;
+}
+
+.List{
+  color: white;
+  font-size: 1.5em;
+  list-style: none;
+}
+
+.ListArea{
+  display: inline-block;
+  margin-right: 35px;
+}
+
+.Button{
+  margin: 5px;
+  width: 75px;
+  height: 25px;
+  border-radius: 5px;
+  border-color: darkgrey;
+  border-width: 2px; 
+}
+
+.InputBox{
+  width: 300px;
+  height: 25px;
+  border-radius: 5px;
+  border-color: darkgrey;
+  border-width: 2px;
+  font-size: 16px;
+  margin-left: 60px;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+  
 }
 
 .App-header {
-  background-color: #222;
+  background-color: black;
   height: 150px;
   padding: 20px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 2.5em;
 }
 
 .App-intro {
