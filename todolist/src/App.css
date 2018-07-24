@@ -17,9 +17,25 @@
   list-style: none;
 }
 
+.ListItem{
+  text-align: center;
+  margin-left: 120px;
+}
+
 .ListArea{
   display: inline-block;
   margin-right: 35px;
+}
+
+.DeleteButton{
+  margin-left: 70px;
+  width: 75px;
+  height: 25px;
+  border-radius: 5px;
+  border-color: darkgrey;
+  border-width: 2px;
+  cursor: pointer; 
+  display: inline-block;
 }
 
 .Button{
@@ -34,6 +50,10 @@
 }
 
 .Button:hover{
+  background-color: darkgray;
+}
+
+.DeleteButton:hover{
   background-color: darkgray;
 }
 

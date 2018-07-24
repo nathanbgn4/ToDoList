@@ -26,15 +26,11 @@ class App extends Component {
   addItem(e){
     e.preventDefault();
     let item = this.state.value;
-    this.validateItem(item);
-    if(this.state.valid){  
+    if(item.length > 0){
+      this.setState({valid: true});  
       this.itemsList.push(item);
       this.setState({value: ''});
-    }
-  }
-
-  validateItem(item){
-    if(item.length <= 0){
+    } else {
       this.setState({valid: false});
     }
   }
@@ -43,7 +39,7 @@ class App extends Component {
     let itemKey = 0;
 
     const items = this.itemsList.map((item) => {
-      return(<li key={itemKey += 1}>{item}</li>)
+      return(<li key={itemKey += 1} className='ListItem'>{item} <button className='DeleteButton'>Delete</button></li>)
     });
 
     const warning = this.state.valid;
