@@ -17,13 +17,18 @@
 }
 
 .Button{
-  margin-right: 500px;
+  margin: 5px;
   width: 75px;
   height: 25px;
   border-radius: 5px;
   border-color: darkgrey;
-  border-width: 2px; 
-  display: block;
+  border-width: 2px;
+  cursor: pointer; 
+  display: inline-block;
+}
+
+.Button:hover{
+  background-color: darkgray;
 }
 
 .InputBox{
@@ -33,7 +38,7 @@
   border-color: darkgrey;
   border-width: 2px;
   font-size: 16px;
-  margin-left: 60px;
+  margin-bottom: 5px;
 }
 
 .App-header {
@@ -49,9 +54,4 @@
 
 .App-intro {
   font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
