@@ -4,7 +4,7 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <body className="App">
         <header className='App-header'>
           <h1 className='App-title'>To-Do List</h1>
           <input className='InputBox'></input>
@@ -15,7 +15,7 @@ class App extends Component {
             <li>test item</li>
           </ul>
         </div>
-      </div>
+      </body>
     );
   }
 }
