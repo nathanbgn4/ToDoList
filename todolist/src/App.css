@@ -28,14 +28,14 @@
 }
 
 .DeleteButton{
+  float: right;
   margin-left: 70px;
   width: 75px;
   height: 25px;
   border-radius: 5px;
   border-color: darkgrey;
   border-width: 2px;
-  cursor: pointer; 
-  display: inline-block;
+  cursor: pointer;
 }
 
 .Button{

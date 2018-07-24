@@ -4,7 +4,7 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = {value: '', valid: true};
+    this.state = {value: '', empty: false, repeat: false};
 
     this.handleChange = this.handleChange.bind(this);
     this.addItem = this.addItem.bind(this);
@@ -20,18 +20,22 @@ class App extends Component {
   clearList(e){
     e.preventDefault();
     this.itemsList = [];
-    this.setState({value: '', valid: true});
+    this.setState({value: '', empty: false, repeat: false});
   }
 
   addItem(e){
     e.preventDefault();
     let item = this.state.value;
     if(item.length > 0){
-      this.setState({valid: true});  
-      this.itemsList.push(item);
-      this.setState({value: ''});
+      if(this.itemsList.indexOf(item) === -1){
+        this.setState({empty: false, repeat: false});  
+        this.itemsList.push(item);
+        this.setState({value: ''});
+      } else {
+        this.setState({repeat: true});
+      }
     } else {
-      this.setState({valid: false});
+      this.setState({empty: true});
     }
   }
 
@@ -42,14 +46,18 @@ class App extends Component {
       return(<li key={itemKey += 1} className='ListItem'>{item} <button className='DeleteButton'>Delete</button></li>)
     });
 
-    const warning = this.state.valid;
+    const emptyString = this.state.empty,
+          repeatItem = this.state.repeat;
 
     return (
       <div className="App">
         <div className='App-header'>
           <h1 className='App-title'>To-Do List</h1>
-          {!warning && 
-            <p className='Warning'>Please enter at least one character</p>
+          {emptyString && 
+            <p className='Warning'>Please enter at least one character</p> 
+          }
+          {repeatItem &&
+            <p className='Warning'>This item already exists</p>
           }
           <form>
             <input type='text' className='InputBox'id='listInput' value={this.state.value} onChange={this.handleChange}/><br />
