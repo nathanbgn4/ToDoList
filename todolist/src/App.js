@@ -9,7 +9,6 @@ class App extends Component {
     this.handleChange   = this.handleChange.bind(this);
     this.addItem        = this.addItem.bind(this);
     this.clearList      = this.clearList.bind(this);
-    this.deleteItem     = this.deleteItem.bind(this);
   }
     
   itemsList=[];
@@ -24,8 +23,12 @@ class App extends Component {
     this.setState({value: '', empty: false, repeat: false});
   }
 
-  deleteItem(e){
-
+  deleteItem(item){
+    let deleteMe = this.itemsList.indexOf(item)
+    if(deleteMe > -1){
+      this.itemsList.splice(deleteMe, 1);
+      this.forceUpdate();
+    }
   }
 
   addItem(e){
@@ -45,10 +48,9 @@ class App extends Component {
   }
 
   render() {
-    let itemKey = 0;
 
     const items = this.itemsList.map((item) => {
-      return(<li key={itemKey += 1} className='ListItem'>{item} <button className='DeleteButton' onClick={this.deleteItem}>Delete</button></li>)
+      return(<li key={this.itemsList.indexOf(item)} className='ListItem'>{item}<button className='DeleteButton' onClick={this.deleteItem.bind(this, item)}>Delete</button></li>)
     });
 
     const emptyString = this.state.empty,
