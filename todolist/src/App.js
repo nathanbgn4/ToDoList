@@ -40,9 +40,10 @@ class App extends Component {
   }
 
   render() {
+    let itemKey = 0;
 
     const items = this.itemsList.map((item) => {
-      return(<li key={item}>{item}</li>)
+      return(<li key={itemKey += 1}>{item}</li>)
     });
 
     const warning = this.state.valid;
