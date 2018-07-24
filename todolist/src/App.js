@@ -8,6 +8,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.addItem = this.addItem.bind(this);
+    this.clearList = this.clearList.bind(this);
   }
   
   itemsList=[];
@@ -16,16 +17,24 @@ class App extends Component {
     this.setState({value: e.target.value});
   }
   
+  clearList(e){
+    e.preventDefault();
+    this.itemsList = [];
+    this.setState({value: ''});
+  }
+
   addItem(e){
-    this.itemsList.push(this.state.value);
+    e.preventDefault();
+    let item = this.state.value;
+    this.itemsList.push(item);
     this.setState({value: ''});
   }
 
   render() {
 
-    const items = this.itemsList.map((item) => 
-      <li>{item}</li>  
-    );
+    const items = this.itemsList.map((item) => {
+      return(<li>{item}</li>)
+    });
 
     return (
       <div className="App">
@@ -34,7 +43,7 @@ class App extends Component {
             <h1 className='App-title'>To-Do List</h1>
             <input type='text' className='InputBox'id='listInput' value={this.state.value} onChange={this.handleChange}/><br />
             <button className='Button' onClick={this.addItem}>Add Item</button>
-            <button className='Button'>Clear List</button>
+            <button className='Button' onClick={this.clearList}>Clear List</button>
           </form>
         </div>
         <div className='ListArea'>
