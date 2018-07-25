@@ -11,7 +11,7 @@ describe('should test todolist', () => {
     const wrapper = shallow(<App />);
     const valueState = wrapper.state().value;
     const emptyState = wrapper.state().empty;
-    const repeateState = wrapper.state().repeat;
+    const repeatState = wrapper.state().repeat;
 
     expect(valueState).toEqual('');
     expect(emptyState).toBeFalsy();
