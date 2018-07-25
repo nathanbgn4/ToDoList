@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {shallow} from 'enzyme';
+import {shallow, mount, render, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 describe('should test todolist', () => {
   it('should check state of values', () => {
