@@ -50,7 +50,7 @@ class App extends Component {
   render() {
 
     const items = this.itemsList.map((item) => {
-      return(<li key={this.itemsList.indexOf(item)} className='ListItem'>{item}<button className='DeleteButton' onClick={this.deleteItem.bind(this, item)}>Delete</button></li>)
+      return(<li key={this.itemsList.indexOf(item)} className='ListItem'>{item}<button id='deleteButton' className='DeleteButton' onClick={this.deleteItem.bind(this, item)}>Delete</button></li>)
     });
 
     const emptyString = this.state.empty,
@@ -61,15 +61,15 @@ class App extends Component {
         <div className='App-header'>
           <h1 className='App-title'>To-Do List</h1>
           {emptyString && 
-            <p className='Warning'>Please enter at least one character</p> 
+            <p className='Warning' id='emptyWarn'>Please enter at least one character</p> 
           }
           {repeatItem &&
-            <p className='Warning'>This item already exists</p>
+            <p className='Warning' id='repeatWarn'>This item already exists</p>
           }
           <form>
             <input type='text' className='InputBox'id='listInput' value={this.state.value} onChange={this.handleChange}/><br />
-            <button className='Button' onClick={this.addItem}>Add Item</button>
-            <button className='Button' onClick={this.clearList}>Clear List</button>
+            <button className='Button' onClick={this.addItem} id='addButton'>Add Item</button>
+            <button className='Button' onClick={this.clearList} id='clearButton'>Clear List</button>
           </form>
         </div>
         <div className='ListArea'>
