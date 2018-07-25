@@ -53,7 +53,6 @@ describe('ToDoList tests', function() {
           
           cy.contains('This item already exists');
      });
-
      it('should delete an item', function(){
           testList.map((item) => {
                cy.get('input').type(item);
