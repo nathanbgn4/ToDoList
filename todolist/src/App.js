@@ -40,7 +40,7 @@ class App extends Component {
         this.itemsList.push(item);
         this.setState({value: ''});
       } else {
-        this.setState({repeat: true});
+        this.setState({empty: false, repeat: true});
       }
     } else {
       this.setState({empty: true});
