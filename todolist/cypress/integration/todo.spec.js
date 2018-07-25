@@ -1,9 +1,8 @@
 describe('ToDoList tests', function() {
 
-     let testList = ['test1', 'test2', 'test3', 'test4'];
-
      beforeEach(function(){
           cy.visit('http://localhost:3000');
+          cy.fixture("testList").as('testList');
      })
 
      it('should render the page', function(){
@@ -21,19 +20,19 @@ describe('ToDoList tests', function() {
      });
 
      it('should add item to the list', function(){
-          cy.get('input').type(testList[0]);
+          cy.get('input').type(this.testList.testList[0]);
           cy.get('#addButton').click();
      })
 
      it('should add multiple list items', function(){
-          testList.map((item) => {
+          this.testList.testList.map((item) => {
                cy.get('input').type(item);
                cy.get('#addButton').click();
           })
      });
 
      it('should clear the list', function(){
-          testList.map((item) => {
+          this.testList.testList.map((item) => {
                cy.get('input').type(item);
                cy.get('#addButton').click();
           })
@@ -54,7 +53,7 @@ describe('ToDoList tests', function() {
           cy.contains('This item already exists');
      });
      it('should delete an item', function(){
-          testList.map((item) => {
+          this.testList.testList.map((item) => {
                cy.get('input').type(item);
                cy.get('#addButton').click();
           })
