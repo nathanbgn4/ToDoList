@@ -2,6 +2,7 @@
   "name": "todolist",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://nathanbgn4.github.io/ToDoList"
   "dependencies": {
     "cypress": "^3.0.2",
     "react": "^16.4.1",
