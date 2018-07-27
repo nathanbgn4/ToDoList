@@ -72,6 +72,8 @@ describe('should test todolist', () => {
         todos.map((item) => {
           wrapper.find('#listInput').instance().value = item;
           wrapper.find('#listInput').simulate('change');
+          expect(wrapper.state().empty).toBeFalsy();
+          expect(wrapper.state().repeat).toBeFalsy();
           wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
         })
         
@@ -100,6 +102,27 @@ describe('should test todolist', () => {
       wrapper.find('#clearButton').simulate('click', {preventDefault: () => {}});
       expect(wrapper.find('ul').children().length).toEqual(0);
       expect(spy.called).toBeTruthy();
+    });
+
+    it('should check for element errors', () => {
+      wrapper = mount(<App />);
+      wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
+
+      expect(wrapper.state().value).toEqual('');
+      expect(wrapper.state().empty).toBeTruthy();
+      expect(wrapper.find('#emptyWarn').exists()).toBeTruthy();
+
+      wrapper.find('#listInput').instance().value = todos[0];
+      wrapper.find('#listInput').simulate('change');
+      wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
+
+      wrapper.find('#listInput').instance().value = todos[0];
+      wrapper.find('#listInput').simulate('change');
+      wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
+
+      expect(wrapper.find('#repeatWarn').exists()).toBeTruthy();
+      expect(wrapper.state().repeat).toBeTruthy();
+
     });
   });
   
