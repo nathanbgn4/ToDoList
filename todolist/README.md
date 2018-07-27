@@ -283,3 +283,177 @@ Example package.json:
   }
 }
 ```
+
+### Continuous Integration
+
+By default `npm test` runs the watcher with interactive CLI. However, you can force it to run tests once and finish the process by setting an environment variable called `CI`.
+
+When creating a build of your application with `npm run build` linter warnings are not checked by default. Like `npm test`, you can force the build to perform a linter warning check by setting the environment variable `CI`. If any warnings are encountered then the build fails.
+
+Popular CI servers already set the environment variable `CI` by default but you can do this yourself too:
+
+### On CI servers
+#### Travis CI
+
+1. Following the [Travis Getting started](https://docs.travis-ci.com/user/getting-started/) guide for syncing your GitHub repository with Travis.  You may need to initialize some settings manually in your [profile](https://travis-ci.org/profile) page.
+1. Add a `.travis.yml` file to your git repository.
+```
+language: node_js
+node_js:
+  - 6
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run build
+  - npm test
+```
+1. Trigger your first build with a git push.
+1. [Customize your Travis CI Build](https://docs.travis-ci.com/user/customizing-the-build/) if needed.
+
+#### CircleCI
+
+Follow [this article](https://medium.com/@knowbody/circleci-and-zeits-now-sh-c9b7eebcd3c1) to set up CircleCI with a Create React App project.
+
+### On your own environment
+##### Windows (cmd.exe)
+
+```cmd
+set CI=true&&npm test
+```
+
+```cmd
+set CI=true&&npm run build
+```
+
+(Note: the lack of whitespace is intentional.)
+
+##### Windows (Powershell)
+
+```Powershell
+($env:CI = $true) -and (npm test)
+```
+
+```Powershell
+($env:CI = $true) -and (npm run build)
+```
+
+##### Linux, macOS (Bash)
+
+```bash
+CI=true npm test
+```
+
+```bash
+CI=true npm run build
+```
+
+The test command will force Jest to run tests once instead of launching the watcher.
+
+>  If you find yourself doing this often in development, please [file an issue](https://github.com/facebookincubator/create-react-app/issues/new) to tell us about your use case because we want to make watcher the best experience and are open to changing how it works to accommodate more workflows.
+
+The build command will check for linter warnings and fail if any are found.
+
+### Disabling jsdom
+
+By default, the `package.json` of the generated project looks like this:
+
+```js
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom"
+```
+
+If you know that none of your tests depend on [jsdom](https://github.com/tmpvar/jsdom), you can safely remove `--env=jsdom`, and your tests will run faster:
+
+```diff
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+-   "test": "react-scripts test --env=jsdom"
++   "test": "react-scripts test"
+```
+
+To help you make up your mind, here is a list of APIs that **need jsdom**:
+
+* Any browser globals like `window` and `document`
+* [`ReactDOM.render()`](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render)
+* [`TestUtils.renderIntoDocument()`](https://facebook.github.io/react/docs/test-utils.html#renderintodocument) ([a shortcut](https://github.com/facebook/react/blob/34761cf9a252964abfaab6faf74d473ad95d1f21/src/test/ReactTestUtils.js#L83-L91) for the above)
+* [`mount()`](http://airbnb.io/enzyme/docs/api/mount.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
+
+In contrast, **jsdom is not needed** for the following APIs:
+
+* [`TestUtils.createRenderer()`](https://facebook.github.io/react/docs/test-utils.html#shallow-rendering) (shallow rendering)
+* [`shallow()`](http://airbnb.io/enzyme/docs/api/shallow.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
+
+Finally, jsdom is also not needed for [snapshot testing](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
+
+### Snapshot Testing
+
+Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. [Read more about snapshot testing.](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html)
+
+### Editor Integration
+
+If you use [Visual Studio Code](https://code.visualstudio.com), there is a [Jest extension](https://github.com/orta/vscode-jest) which works with Create React App out of the box. This provides a lot of IDE-like features while using a text editor: showing the status of a test run with potential fail messages inline, starting and stopping the watcher automatically, and offering one-click snapshot updates.
+
+![VS Code Jest Preview](https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png)
+
+## Debugging Tests
+
+There are various ways to setup a debugger for your Jest tests. We cover debugging in Chrome and [Visual Studio Code](https://code.visualstudio.com/).
+
+>Note: debugging tests requires Node 8 or higher.
+
+### Debugging Tests in Chrome
+
+Add the following to the `scripts` section in your project's `package.json`
+```json
+"scripts": {
+    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom"
+  }
+```
+Place `debugger;` statements in any test and run:
+```bash
+$ npm run test:debug
+```
+
+This will start running your Jest tests, but pause before executing to allow a debugger to attach to the process.
+
+Open the following in Chrome
+```
+about:inspect
+```
+
+After opening that link, the Chrome Developer Tools will be displayed. Select `inspect` on your process and a breakpoint will be set at the first line of the react script (this is done simply to give you time to open the developer tools and to prevent Jest from executing before you have time to do so). Click the button that looks like a "play" button in the upper right hand side of the screen to continue execution. When Jest executes the test that contains the debugger statement, execution will pause and you can examine the current scope and call stack.
+
+>Note: the --runInBand cli option makes sure Jest runs test in the same process rather than spawning processes for individual tests. Normally Jest parallelizes test runs across processes but it is hard to debug many processes at the same time.
+
+### Debugging Tests in Visual Studio Code
+
+Debugging Jest tests is supported out of the box for [Visual Studio Code](https://code.visualstudio.com).
+
+Use the following [`launch.json`](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) configuration file:
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug CRA Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",      
+      "args": [
+        "test",
+        "--runInBand",
+        "--no-cache",
+        "--env=jsdom"
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
+```
