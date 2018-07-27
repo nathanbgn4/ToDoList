@@ -31,7 +31,7 @@ TESTING
 
      specific id's can be accessed with '#elementID'
 
-     Most other documentation on Jest testing can be found in the default CRA documentation.
+     Below is all the Create React App documentation on testing that I shamelessely copy/pasted.
 
      Note: this feature is available with `react-scripts@0.3.0` and higher.<br>
 >[Read the migration guide to learn how to enable it in older projects!](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md#migrating-from-023-to-030)
