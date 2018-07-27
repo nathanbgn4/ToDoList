@@ -7,11 +7,14 @@
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-router": "^4.3.1",
     "react-scripts": "1.1.4",
     "sinon": "^6.1.4"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx}"]
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
   },
   "scripts": {
     "start": "react-scripts start",
