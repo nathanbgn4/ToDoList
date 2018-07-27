@@ -5,7 +5,7 @@
   "dependencies": {
     "cypress": "^3.0.2",
     "gh-pages": "^1.2.0",
-    "lodash": "file:node_modules/lodash",
+    "lodash": "^4.17.10",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router": "^4.3.1",
