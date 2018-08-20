@@ -1,5 +1,63 @@
 import React, { Component } from 'react';
-import './App.css';
+// import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+
+const styles = theme => ({
+  App: {
+    textAlign: 'center',
+    background: '#222',
+    height: '100%',
+    marginBottom: '0px'
+  },
+  AppHeader: {
+    backgroundColor: 'black',
+    height: 'auto',
+    padding: '20px',
+    color: 'white',
+    textShadow: '2px 2px gray'
+  },
+  AppTitle: {
+    fontSize: '2.5em'
+  },
+  Warning: {
+    color: 'red',
+    fontSize: '16px',
+    textAlign: 'center',
+    textShadow: 'none'
+  },
+  InputBox: {
+    width: '300px',
+    height: '25px',
+    borderRadius: '5px',
+    borderColor: 'darkgrey',
+    borderWidth: '2px',
+    fontSize: '16px',
+    marginBottom: '5px'
+  },
+  listArea: {
+    display: 'inline-block',
+    marginRight: '35px'
+  },
+  listItem: {
+    textAlign: 'center', 
+    marginLeft: '120px',
+    marginTop: '15px'
+  },
+  list: {
+    color: 'white',
+    fontSize: '1.5em',
+    listStyle: 'none'
+  },
+  todoButtons: {
+    margin: '5px',
+    display: 'inline-block'
+  },
+  deleteButtons: {
+    float: 'right',
+    marginLeft: '70px'
+  }
+});
 
 class App extends Component {
   constructor(props){
@@ -48,38 +106,38 @@ class App extends Component {
   }
 
   render() {
-
+    const {classes} = this.props;
     const items = this.itemsList.map((item) => {
-      return(<li key={this.itemsList.indexOf(item)} className='ListItem'>{item}<button id='deleteButton' className='DeleteButton' onClick={this.deleteItem.bind(this, item)}>Delete</button></li>)
+      return(<li key={this.itemsList.indexOf(item)} className={classes.listItem}>{item}<Button id='deleteButton' variant='contained' color='secondary' className={classes.deleteButtons} onClick={this.deleteItem.bind(this, item)}>Delete</Button></li>)
     });
 
     const emptyString = this.state.empty,
           repeatItem = this.state.repeat;
 
     return (
-      <div className="App">
-        <div className='App-header'>
-          <h1 className='App-title'>To-Do List</h1>
+      <div className={classes.App}>
+        <div className={classes.AppHeader}>
+          <h1 className={classes.AppHeader}>To-Do List</h1>
           {emptyString && 
-            <p className='Warning' id='emptyWarn'>Please enter at least one character</p> 
+            <p className={classes.Warning} id='emptyWarn'>Please enter at least one character</p> 
           }
           {repeatItem &&
-            <p className='Warning' id='repeatWarn'>This item already exists</p>
+            <p className={classes.Warning} id='repeatWarn'>This item already exists</p>
           }
           <form>
-            <input type='text' className='InputBox'id='listInput' value={this.state.value} onChange={this.handleChange}/><br />
-            <button className='Button' onClick={this.addItem} id='addButton'>Add Item</button>
-            <button className='Button' onClick={this.clearList} id='clearButton'>Clear List</button>
+            <input type='text' className={classes.InputBox} id='listInput' value={this.state.value} onChange={this.handleChange}/><br />
+            <Button className={classes.todoButtons} onClick={this.addItem} id='addButton' variant='contained' color='secondary'>Add Item</Button>
+            <Button className={classes.todoButtons} onClick={this.clearList} id='clearButton' variant='contained' color='secondary'>Clear List</Button>
           </form>
         </div>
-        <div className='ListArea'>
-          <ul className='List'>
+        <div className={classes.listArea}>
+          <ul className={classes.list}>
             {items}
           </ul>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

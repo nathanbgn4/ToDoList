@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.5.1",
     "cypress": "^3.0.2",
     "gh-pages": "^1.2.0",
     "lodash": "^4.17.10",
@@ -13,9 +14,7 @@
     "sinon": "^6.1.4"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ]
+    "coverageReporters": ["json", "html", "text"]
   },
   "scripts": {
     "start": "react-scripts start",
