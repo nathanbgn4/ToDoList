@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/ToolBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
-import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -27,24 +25,23 @@ class Header extends Component {
           const { classes } = this.props;
           return(
                <AppBar position='static' className={classes.header}>
-                    <ToolBar>
+                    <Toolbar>
                          <Typography variant='title' className={classes.flex} color='inherit'>
                               Double ToDoList Demo
                          </Typography>
                          
-                         <a className={classes.anchorButton}>
+                         <a href='/' className={classes.anchorButton}>
                               <Button variant='contained' color='secondary'>
                                    Home
                               </Button>
                          </a>
 
-                         <a component={Link} to='/ToDoMui' className={classes.anchorButton}>
+                         <a href='/todomui' className={classes.anchorButton}>
                               <Button variant='contained' color='secondary'>
                                    ToDo M-UI
                               </Button>
                          </a>
-
-                    </ToolBar>
+                    </Toolbar>
                </AppBar>
           );
      }
