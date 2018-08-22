@@ -40,7 +40,7 @@ const styles = theme => ({
   },
   listItem: {
     textAlign: 'center', 
-    marginLeft: '120px',
+    marginLeft: '150px',
     marginTop: '15px'
   },
   list: {
@@ -116,7 +116,7 @@ class ToDoMui extends Component {
     return (
       <div className={classes.App}>
         <div className={classes.AppHeader}>
-          <h1 className={classes.AppHeader}>To-Do List</h1>
+          <h1 className={classes.AppHeader}>To-Do List: Material-UI</h1>
           {emptyString && 
             <p className={classes.Warning} id='emptyWarn'>Please enter at least one character</p> 
           }
