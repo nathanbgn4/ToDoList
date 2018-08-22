@@ -26,11 +26,11 @@ const styles = theme => ({
     textShadow: 'none'
   },
   InputBox: {
-    width: '300px',
-    height: '25px',
+    width: '320px',
+    height: '35px',
     borderRadius: '5px',
     borderColor: 'darkgrey',
-    borderWidth: '2px',
+    borderWidth: '0px',
     fontSize: '16px',
     marginBottom: '5px'
   },
@@ -116,7 +116,7 @@ class ToDoMui extends Component {
     return (
       <div className={classes.App}>
         <div className={classes.AppHeader}>
-          <h1 className={classes.AppHeader}>To-Do List: Material-UI</h1>
+          <h1 className={classes.AppTitle}>To-Do List: Material-UI</h1>
           {emptyString && 
             <p className={classes.Warning} id='emptyWarn'>Please enter at least one character</p> 
           }

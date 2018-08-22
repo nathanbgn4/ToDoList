@@ -45,6 +45,10 @@ class Header extends Component {
                          <Button className={classes.anchorButton} onClick={refreshPage} component={Link} to='/todomui' variant='contained' color='secondary'>
                               ToDo M-UI
                          </Button>
+
+                         <Button className={classes.anchorButton} onClick={refreshPage} component={Link} to='/todoredux' variant='contained' color='secondary'>
+                              ToDo Redux
+                         </Button>
                     </Toolbar>
                </AppBar>
                </BrowserRouter>
