@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import {Link, BrowserRouter} from 'react-router-dom';
+
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -20,29 +22,32 @@ const styles = theme => ({
    }
 });
 
+function refreshPage() {
+     window.location.reload();
+}
+
 class Header extends Component {
+
      render() {
           const { classes } = this.props;
           return(
+               <BrowserRouter>
                <AppBar position='static' className={classes.header}>
                     <Toolbar>
                          <Typography variant='title' className={classes.flex} color='inherit'>
                               Double ToDoList Demo
                          </Typography>
                          
-                         <a href='/' className={classes.anchorButton}>
-                              <Button variant='contained' color='secondary'>
-                                   Home
-                              </Button>
-                         </a>
-
-                         <a href='/todomui' className={classes.anchorButton}>
-                              <Button variant='contained' color='secondary'>
-                                   ToDo M-UI
-                              </Button>
-                         </a>
+                         <Button className={classes.anchorButton} onClick={refreshPage} component={Link} to='/' variant='contained' color='secondary'>
+                              Home
+                         </Button>
+                         
+                         <Button className={classes.anchorButton} onClick={refreshPage} component={Link} to='/todomui' variant='contained' color='secondary'>
+                              ToDo M-UI
+                         </Button>
                     </Toolbar>
                </AppBar>
+               </BrowserRouter>
           );
      }
 };

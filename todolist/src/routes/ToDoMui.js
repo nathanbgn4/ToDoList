@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
 
 const styles = theme => ({
   App: {
@@ -140,4 +139,4 @@ class ToDoMui extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(ToDoMui));
+export default withStyles(styles)(ToDoMui);
