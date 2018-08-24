@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import {configure} from 'enzyme';
-import { createMount, createShallow } from '@material-ui/core/test-utils';
+import ToDoMui from '../routes/ToDoMui.js';
+import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 
@@ -10,55 +9,48 @@ configure({ adapter: new Adapter() });
 
 describe('should test todolist', () => {
 
-  let shallow, shallowWrapper, wrapper, spy;
+  let   wrapper, spy;
   const todos = ['do stuff', 
                 'more stuff', 
                 'less stuff'];
 
   beforeEach(() => {
-    shallow = createShallow();
-    shallowWrapper = shallow(<App />).shallow();
+    wrapper = shallow(<ToDoMui />).dive();
     spy = sinon.spy();
   });
 
   describe('page rendering', () => {
     it('should render the page successfully', () => {
-      expect(shallowWrapper).toBeTruthy();
+      expect(wrapper).toBeTruthy();
     });
   
     it('should check state of values', () => {
-      expect(shallowWrapper.state().value).toEqual('');
-      expect(shallowWrapper.state().empty).toBeFalsy();
-      expect(shallowWrapper.state().repeat).toBeFalsy();
+      expect(wrapper.state().value).toEqual('');
+      expect(wrapper.state().empty).toBeFalsy();
+      expect(wrapper.state().repeat).toBeFalsy();
     });
   });
   
   describe('element functionality', () => {
     it('should test the add button', () => {
-      spy(shallowWrapper, 'addButton');
-      shallowWrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
+      spy(wrapper, 'addButton');
+      wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
       
       expect(spy.calledOnce).toBeTruthy();
     });
     
     it('should test the clear button', () => {      
-      spy(shallowWrapper, 'clearList');
-      shallowWrapper.find('#clearButton').simulate('click', {preventDefault: () => {}});
+      spy(wrapper, 'clearList');
+      wrapper.find('#clearButton').simulate('click', {preventDefault: () => {}});
       
       expect(spy.calledOnce).toBeTruthy();
     });
 
     it('should add items to the list', () => {
-        wrapper = mount(<App />);
         spy(wrapper, 'addButton');
 
         todos.map((item) => {
-          wrapper.find('#listInput').instance().value = item;
-          wrapper.find('#listInput').simulate('change');
-
-          expect(wrapper.state().empty).toBeFalsy();
-          expect(wrapper.state().repeat).toBeFalsy();
-          
+          wrapper.state().value = item;
           wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
         })
         
@@ -67,12 +59,9 @@ describe('should test todolist', () => {
         expect(wrapper.find('ul').children().length).toEqual(3);
     });
 
-    it('should delete items from the list and clear it', () => {
-      wrapper = mount(<App />);
-      
+    it('should delete items from the list and clear it', () => {      
       todos.map((item) => {
-        wrapper.find('#listInput').instance().value = item;
-        wrapper.find('#listInput').simulate('change');
+        wrapper.state().value = item;
         wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
       })
 
@@ -90,19 +79,16 @@ describe('should test todolist', () => {
     });
 
     it('should check for element errors', () => {
-      wrapper = mount(<App />);
       wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
 
       expect(wrapper.state().value).toEqual('');
       expect(wrapper.state().empty).toBeTruthy();
       expect(wrapper.find('#emptyWarn').exists()).toBeTruthy();
 
-      wrapper.find('#listInput').instance().value = todos[0];
-      wrapper.find('#listInput').simulate('change');
+      wrapper.state().value = todos[0];
       wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
 
-      wrapper.find('#listInput').instance().value = todos[0];
-      wrapper.find('#listInput').simulate('change');
+      wrapper.state().value = todos[0];
       wrapper.find('#addButton').simulate('click', {preventDefault: () => {}});
 
       expect(wrapper.find('#repeatWarn').exists()).toBeTruthy();

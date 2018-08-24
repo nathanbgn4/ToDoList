@@ -58,7 +58,7 @@ const styles = theme => ({
   }
 });
 
-class ToDoMui extends Component {
+export class ToDoMui extends Component {
   constructor(props){
     super(props);
     this.state = {value: '', empty: false, repeat: false};
@@ -139,4 +139,6 @@ class ToDoMui extends Component {
   }
 }
 
-export default withStyles(styles)(ToDoMui);
+const Styled = withStyles(styles)(ToDoMui);
+
+export default Styled;
